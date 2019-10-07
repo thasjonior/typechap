@@ -28,9 +28,14 @@ class Timer:
         self.isplaying=False
 
     def play(self):
+        if not self.isplaying:
+            print("1")
+            self.timer.start()
         if self.isstopped:
+            print("2")
             self.timer.start()
         if self.ispaused:
+            print("3")
             self.timer.start()
         self.isplaying=True 
 
@@ -39,10 +44,12 @@ class Timer:
     
     @property
     def display_time(self):
+        
         minutes=math.floor(self.current_time/59)
         mm= minutes if minutes >9 else f"0{minutes}"
         seconds=self.current_time%59
         ss= seconds if seconds >9 else f"0{seconds}"
+        print(f"{mm}:{ss}")
         return f"{mm}:{ss}"
 
     @display_time.setter

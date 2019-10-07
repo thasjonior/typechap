@@ -19,7 +19,8 @@ class MainApp(QWidget):
         self.keyboard=QGroupBox(self)
         self.Timer=QHBoxLayout()
         self.btn_status="start"
-        self.Timer.addWidget(self.timer_label())
+        self.timer_label=QLabel("mm:ss")
+        self.Timer.addWidget(self.timer_label)
         self.Timer.addWidget(self.get_play_pause_btn())
         self.Timer.addWidget(self.stop_btn())
         self.exercise=exercise(self.textfield)
@@ -31,6 +32,7 @@ class MainApp(QWidget):
     def initUI(self):
         self.create_layout()
         self.set_keyboard_keys()
+        self.display_time()
         self.setGeometry(1000,1000,1000,600)
         self.setWindowTitle("T.Y.P.E...CHAP")
         self.show()
@@ -50,8 +52,8 @@ class MainApp(QWidget):
  
         self.keyboard.setLayout(grid)
 
-    def timer_label(self):
-        return QLabel("mm:ss",self)
+    # def timer_label(self):
+    #     return QLabel("mm:ss",self)
     
     # @property
     def get_play_pause_btn(self):
@@ -84,17 +86,12 @@ class MainApp(QWidget):
         self.speedCounter.stop()
         self.btn_status="start"
         self.play_pause_btn.setText(self.btn_status)
-            
-
-
-    
-
+             
 
     def display_time(self):
-        self.timer_label.setText(self.speedCounter.display_time)
+        self.timer_label.setText (self.speedCounter.display_time)
         self.speedCounter.play()
-        
-        self.change_starstop_btn()
+        # self.change_starstop_btn()
 
 
             
@@ -104,17 +101,17 @@ class MainApp(QWidget):
 
 
 
-    def change_starstop_btn(self):
-        self.textfield.setText(self.exercise.exercises[0])
+    # def change_starstop_btn(self):
+    #     self.textfield.setText(self.exercise.exercises[0])
 
-        if self.btn.text()=="start":
-            self.btn.setText("stop")
-            timer.start()
-        else:
-            self.btn.setText("start")
-            timer.stop()
-            self.next_exercise=1
-            self.current_time=0
+    #     if self.btn_status.text()=="start":
+    #         self.btn_status.setText("stop")
+    #         timer.start()
+    #     else:
+    #         self.btn.setText("start")
+    #         timer.stop()
+    #         self.next_exercise=1
+    #         self.current_time=0
             
             
 
@@ -123,10 +120,7 @@ class MainApp(QWidget):
         self.textfield.setText(self.exercise.exercises[self.next_exercise])
         self.next_exercise+=1
 
-  
-
-
-        
+   
         
 
 if __name__ =='__main__':
