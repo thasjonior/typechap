@@ -9,7 +9,7 @@ class Timer:
         self.current_time=0
         self.isplaying=False
         self.ispaused=False
-        self.isstopped=False
+        self.isstopped=True
         self.display_time=0
 
     def set_slot(self,slot):
@@ -28,9 +28,7 @@ class Timer:
         self.isplaying=False
 
     def play(self):
-        if self.isstopped:
-            self.timer.start()
-        if self.ispaused:
+        if self.isstopped or self.ispaused:
             self.timer.start()
         self.isplaying=True 
 
