@@ -11,22 +11,23 @@ from exercise import exercise
 class MainApp(QWidget): 
     def __init__(self):
         super().__init__()
-        self.speedCounter=Timer(1)
-        self.speedCounter.set_slot(self.speedCounter.update_timer)
-        self.exerciseCounter=Timer(120)
-        self.exerciseCounter.set_slot(self.callnext_exercise)
         self.textfield=QLabel(self)
         self.keyboard=QGroupBox(self)
         self.Timer=QHBoxLayout()
         self.btn_status="start"
-        self.timer_label=QLabel("mm:ss")
         self.Timer.addWidget(self.timer_label)
         self.Timer.addWidget(self.get_play_pause_btn())
         self.Timer.addWidget(self.stop_btn())
         self.exercise=exercise(self.textfield)
-        self.initUI()
-        self.next_exercise=1
         
+
+        self.speedCounter=Timer(1)
+        self.speedCounter.set_slot(self.speedCounter.update_timer)
+        self.exerciseCounter=Timer(120)
+        self.next_exercise=0
+        self.callnext_exercise()
+        self.exerciseCounter.set_slot(self.callnext_exercise)
+        self.initUI()
 
 
     def initUI(self):
@@ -52,8 +53,14 @@ class MainApp(QWidget):
  
         self.keyboard.setLayout(grid)
 
-    # def timer_label(self):
-    #     return QLabel("mm:ss",self)
+    @property
+    def timer_label(self):
+        try:
+            if self.label:
+                pass
+        except AttributeError:
+                self.label=QLabel("mm:ss",self)
+        return self.label
     
     # @property
     def get_play_pause_btn(self):
@@ -70,9 +77,11 @@ class MainApp(QWidget):
         if self.btn_status == "start" or self.btn_status=="resume":
             self.btn_status="pause"
             self.speedCounter.play()
+            self.exerciseCounter.play()
         else:
             self.btn_status="resume"
             self.speedCounter.pause()
+            self.exerciseCounter.pause()
         self.play_pause_btn.setText(self.btn_status)
 
     # @property
@@ -84,45 +93,26 @@ class MainApp(QWidget):
 
     def stop(self):
         self.speedCounter.stop()
+        self.exerciseCounter.stop()
         self.btn_status="start"
         self.play_pause_btn.setText(self.btn_status)
+        self.label.setText(self.speedCounter.display_time)
              
-
+    
     def display_time(self):
-        self.timer_label.setText (self.speedCounter.display_time)
+        self.timer_label.setText(self.speedCounter.display_time)
         self.speedCounter.play()
-        # self.change_starstop_btn()
-
-
-            
-
-            
-
-
-
-
-    # def change_starstop_btn(self):
-    #     self.textfield.setText(self.exercise.exercises[0])
-
-    #     if self.btn_status.text()=="start":
-    #         self.btn_status.setText("stop")
-    #         timer.start()
-    #     else:
-    #         self.btn.setText("start")
-    #         timer.stop()
-    #         self.next_exercise=1
-    #         self.current_time=0
-            
-            
+        
+        
+    def update_timer(self):
+        self.speedCounter.update_timer()
+        self.label.setText(self.speedCounter.display_time) 
 
     def callnext_exercise(self):
-        self.current_time=0
         self.textfield.setText(self.exercise.exercises[self.next_exercise])
         self.next_exercise+=1
 
    
-        
-
 if __name__ =='__main__':
     app=QApplication(sys.argv)
     main=MainApp()

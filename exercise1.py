@@ -1,4 +1,4 @@
-# exersice class
+p# exersice class
 # exrecise string
 # next exercise 
 # previuous exercise 
