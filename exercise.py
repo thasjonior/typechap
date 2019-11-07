@@ -1,48 +1,45 @@
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtGui import QFont
-class exercise:
-    def __init__(self,label):
-        self.font=QFont("Times", 24)
-        label.setFont(self.font)
-        
-        
-        
-    @property
-    def keys(self):
-        return ['`','1','2','3','4','5','6','7','8','9','0','-','=','backspace',
-        'tab','Q','W','E','R','T','Y','U','I','O','P','[',']','fs',
-        'capslock','A','S','D','F','G','H','J','J','K','L',';','sk','Enter',
-        'shift','Z','X','C','V','B','N','M',',','.','/','shift',
-        'ctrl','fn','home','alt','space','alt','option','ctrl',
-        ]   
+
+
+class Exercise:
+    """
+    An exercise:
+    - Part of the domain
+
+    - An exercise should keep its own state including passes, percentage score, etc
+    - This class shouldn't know anything about a widget
+    - This exercise is assignable to a person, so they can keep track of the progress they make for 
+      particular exercises.
+    """
+    def __init__(self, name, text):
+
+        if text is None:
+            return 'no text'
+            
+        self.name = name
+        self.text = text
+        self.passes = 0
+        self.current_char_index=0
+        self.length = len(self.text)
     
+    def next_char(self):
+        self.current_char_index += 1
+
     @property
-    def exercises(self):
+    def current_char(self):
+        return self.text[self.current_char_index]
 
-        exercise1="""
-                        asdf;lkjasdf;lkjasdf;lkjasdf;lkjasdf;lkj
-                        fdsajkl;fdsajkl;fdsajkl;fdsajkl;fdsajkl;
-                        one
+    def add_passes(self):
+        self.passes += 1
 
-                        """
-        exercise2="""
-                        asdf ;lkj asdf ;lkj asdf ;lkj asdf ;lkj
-                        fdsa jkl; fdsa jkl; fdsa jkl; fdsa jkl;
-                        two
-                        """
-        exercise3="""
-                        sad lad dad all add ask ass as;
-                        asks alas fall dads flak lass lads add;
-                        three
-                        """
-        exercise4="""
-                        salad; a flask; a jaffa; flak falls;
-                        a lass adds a jaffa as a lad asks
-                        as sad as a lass; a flask falls
-                        all salads add jaffas as dad asks
-                        alas a sad dad; a lass adds a flask
-                        a lass adds; a dad asks all; ask a lad
-                        """
-        return [exercise1 ,exercise2,exercise3,exercise4]
+    @property
+    def percentage_score(self):
+        return f"{self.passes / self.length * 100:.2f}"
+
+    @property
+    def live_score(self):
+        return f"{self.passes / (self.current_char_index) * 100:.2f}"
+
+
+    
 
     
