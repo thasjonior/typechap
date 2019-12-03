@@ -30,13 +30,16 @@ class Timer:
     def play(self):
         if self.isstopped or self.ispaused:
             self.timer.start()
-        self.isplaying=True 
-
-    def update_timer(self):
-        self.current_time+=1
+        self.isplaying=True
+        # print("is playing") 
     
+    def update_timer(self):
+        self.current_time +=1
+        
+
     @property
     def display_time(self):
+        # self.update_timer()
         minutes=math.floor(self.current_time/59)
         mm= minutes if minutes >9 else f"0{minutes}"
         seconds=self.current_time%59

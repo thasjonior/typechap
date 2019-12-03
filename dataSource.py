@@ -1,15 +1,16 @@
+
 class Source:
     """
     this independent class contain all data to be used in the program
     especially exercises and their relative methods
     """
 
-    def __init__(self,cur_ex=None):
+    def __init__(self):
 
-        if cur_ex == None:
-            return cur_ex== 0
+        # if cur_ex == None:
+        #     return cur_ex== 0
 
-        self.cur_ex=cur_ex
+        self.cur_ex=0
         
     @property
     def container(self):
@@ -35,14 +36,15 @@ class Source:
         returns previous exercise from the current one
         in list 
         """
-        return self.cur_ex - 1 
+        self.cur_ex -=1
+        return self.cur_ex 
 
     def next_ex(self):
         """
         returns next exercise from the current one in list
         """
-
-        return self.cur_ex + 1
+        self.cur_ex +=1
+        return self.cur_ex 
 
     def score(self):
         pass

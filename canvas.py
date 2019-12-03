@@ -19,8 +19,10 @@ class Canvas(QWidget):
     
     """
 
-    def __init__(self, exercise):
+    def __init__(self,parent,exercise):
         super().__init__()
+        self.parent = parent
+        self.show()
         self.exercise = exercise
         layout = QVBoxLayout()
 
@@ -34,7 +36,7 @@ class Canvas(QWidget):
         self.typing_area.show()
         layout.addWidget(self.text_viewer)
         layout.addWidget(self.typing_area)
-        layout.addWidget(QLabel("Click here to get started"))
+        # layout.addWidget(QLabel("Click here to get started"))
         self.setLayout(layout)
     
     def keyPressEvent(self, key_event):

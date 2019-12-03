@@ -6,8 +6,10 @@ class Keyboard(QWidget):
     """
     this class manages the on screen keyboard
     """
-    def __init__(self):
+    def __init__(self,parent):
         super().__init__()
+        self.parent=parent
+        self.show()
         self.btn=QPushButton("btn",self)
         self.keys=['1','2','3','4','5','6','7','8','9','0','-','=','backspace',
         'tab','q','w','e','r','t','y','u','i','o','p','[',']','fs',
@@ -18,7 +20,7 @@ class Keyboard(QWidget):
         self.initUI()
 
     def initUI(self):
-        pass
+        self.onscreen_keyboard
         # self.setGeometry(1000,500,1000,500)
         # self.show()
 
